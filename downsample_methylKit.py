@@ -6,13 +6,20 @@ import random
 
 
 if len(sys.argv) != 2:
-	print("Usage: cat <methylkit file> | downsample_methylKit.py <fraction of reads to keep> > <output file>")
+	print("Usage: cat <methylkit file> | grep -v chrBase | downsample_methylKit.py <fraction of reads to keep> > <output file>")
 	sys.exit()
 
-downsample_number = int(float(sys.argv[1]) * 100)
+downsample_len = len(sys.argv[1].split(".")[1])
+downsample_number = int(sys.argv[1].split(".")[1])
+downsample_cap = int("".join(["1" ,"".join(["0" for x in range(downsample_len)])]))
 
-print(next(sys.stdin).strip())
+
+counter = 0
+#print(next(sys.stdin).strip())
 for line in sys.stdin:
+	counter += 1
+	if counter % 1000000 == 0:
+		print("\rProcessed {} lines".format(counter), end = "", file = sys.stderr)
 # 	print(line.strip())
 	meth = []
 	unmeth = []
@@ -33,14 +40,14 @@ for line in sys.stdin:
 # 	print(meth, unmeth)
 	
 	for x in range(len(meth)):
-		tmp = random.randint(0, 100)
+		tmp = random.randint(0, downsample_cap)
 # 		print(tmp)
 		if tmp > downsample_number:
 # 			print("Removing one methylated coverage")
 			meth[x] = 0
 	
 	for x in range(len(unmeth)):
-		tmp = random.randint(0, 100)
+		tmp = random.randint(0, downsample_cap)
 # 		print(tmp)
 		if tmp > downsample_number:
 # 			print("Removing one unmethylated coverage")
