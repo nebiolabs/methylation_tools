@@ -6,7 +6,10 @@ import random
 
 
 if len(sys.argv) == 1:
-	print("Usage: cat <methylkit file> | grep -v chrBase | downsample_methylKit.py --fraction <fraction of reads to keep> > <output file>")
+	print("""Usage: cat <methylkit file> | grep -v chrBase | downsample_methylKit.py --fraction <fraction of reads to keep> > <output file>
+			OR
+			cat <bedGraph file> | grep -v track | downsample_methylKit.py --fraction <fraction of reads to keep> --bedGraph > <output file>
+			""")
 	sys.exit()
 
 def argparser():
