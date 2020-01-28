@@ -5,7 +5,7 @@ import sys
 import random
 
 
-if len(sys.argv) != 2:
+if len(sys.argv) == 1:
 	print("Usage: cat <methylkit file> | grep -v chrBase | downsample_methylKit.py --fraction <fraction of reads to keep> > <output file>")
 	sys.exit()
 
@@ -58,7 +58,7 @@ for line in sys.stdin:
 	new_covg = sum(meth) + sum(unmeth)
 	if new_covg > 0:
 		if args.bedGraph == True:
-			line[3] = str(int(sum(meth) / new_covg))
+			line[3] = str(int(100 * (sum(meth) / new_covg)))
 			line[4] = str(sum(meth))
 			line[5] = str(sum(unmeth))
 		else:
