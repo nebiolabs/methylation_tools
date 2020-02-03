@@ -21,7 +21,6 @@ for line in sys.stdin:
             prev_Cs = round((float(prev_line[5]) / 100) * prev_covg)
             new_covg = covg + prev_covg
             new_Cs = Cs + prev_Cs
-            print(new_Cs, new_covg)
             new_freqC = 100 * round(new_Cs / new_covg, 2)
             new_freqT = round(100 - new_freqC, 2)
             prev_line[4] = new_covg
