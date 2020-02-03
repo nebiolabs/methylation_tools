@@ -16,12 +16,12 @@ for line in sys.stdin:
         prev_base = int(prev_line[2])
         if base - prev_base == 1:
             covg = int(line[4])
-            Cs = int(float(line[5]) * covg)
+            Cs = round((float(line[5]) / 100) * covg)
             prev_covg = int(prev_line[4])
-            prev_Cs = int(float(prev_line[5]) * prev_covg)
+            prev_Cs = round((float(prev_line[5]) / 100) * prev_covg)
             new_covg = covg + prev_covg
             new_Cs = Cs + prev_Cs
-            new_freqC = round(new_Cs / new_covg, 2)
+            new_freqC = 100 * round(new_Cs / new_covg, 2)
             new_freqT = round(100 - new_freqC, 2)
             prev_line[4] = new_covg
             prev_line[5] = new_freqC
@@ -29,11 +29,17 @@ for line in sys.stdin:
             print("\t".join(map(str, prev_line)))
         else:
             print("\t".join(map(str, prev_line)))
-            print("\t".join(map(str, line)))
+            tmp_line = list(line)
+            tmp_line[3] = "F"
+            tmp_line[2] = int(tmp_line[2]) - 1
+            print("\t".join(map(str, tmp_line)))
     elif (prev_line[3], line[3]) == ("F", "F"):
         print("\t".join(map(str, prev_line)))
     elif (prev_line[3], line[3]) == ("R", "R"):
-        print("\t".join(map(str, line)))
+        tmp_line = list(line)
+        tmp_line[3] = "F"
+        tmp_line[2] = int(tmp_line[2]) - 1
+        print("\t".join(map(str, tmp_line)))
     prev_line = line
 
 if prev_line[3] == "F":
