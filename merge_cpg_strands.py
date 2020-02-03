@@ -16,13 +16,13 @@ for line in sys.stdin:
         prev_base = int(prev_line[2])
         if base - prev_base == 1:
             covg = int(line[4])
-            Cs = round((float(line[5]) / 100) * covg)
+            Cs = round((float(line[5]) / 100) * covg, 4)
             prev_covg = int(prev_line[4])
-            prev_Cs = round((float(prev_line[5]) / 100) * prev_covg)
+            prev_Cs = round((float(prev_line[5]) / 100) * prev_covg, 4)
             new_covg = covg + prev_covg
             new_Cs = Cs + prev_Cs
-            new_freqC = 100 * round(new_Cs / new_covg, 2)
-            new_freqT = round(100 - new_freqC, 2)
+            new_freqC = 100 * round(new_Cs / new_covg, 4)
+            new_freqT = round(100 - new_freqC, 4)
             prev_line[4] = new_covg
             prev_line[5] = new_freqC
             prev_line[6] = new_freqT
