@@ -29,11 +29,17 @@ for line in sys.stdin:
             print("\t".join(map(str, prev_line)))
         else:
             print("\t".join(map(str, prev_line)))
-            print("\t".join(map(str, line)))
+            tmp_line = list(line)
+            tmp_line[3] = "F"
+            tmp_line[2] = int(tmp_line[2]) - 1
+            print("\t".join(map(str, tmp_line)))
     elif (prev_line[3], line[3]) == ("F", "F"):
         print("\t".join(map(str, prev_line)))
     elif (prev_line[3], line[3]) == ("R", "R"):
-        print("\t".join(map(str, line)))
+        tmp_line = list(line)
+        tmp_line[3] = "F"
+        tmp_line[2] = int(tmp_line[2]) - 1
+        print("\t".join(map(str, tmp_line)))
     prev_line = line
 
 if prev_line[3] == "F":
